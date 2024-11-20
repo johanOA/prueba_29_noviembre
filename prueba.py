@@ -166,13 +166,11 @@ def scrape_prices_safari(url, search_query):
                         print(cleaned_comment)
                 except Exception as e:
                     print(f"Error al hacer clic en la publicación: {e}")
+        
         reacctionPublic = soup.find_all('span', {'x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs xt0psk2 x1i0vuye xvs91rp x1s688f x5n08af x10wh9bi x1wdrske x8viiok x18hxmgj'})
 
-        for span in accountName:
-            if "Me gusta" in span.text:
-                nameAccount = span.text
 
-        output_file = "Cuentas.csv"
+        output_file = "Publicaciones.csv"
         
         #Escribe el CSV para las cuentas
         with open(output_file, mode='w', encoding='utf-8', newline='') as file:
