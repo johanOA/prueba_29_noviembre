@@ -167,8 +167,19 @@ def scrape_prices_safari(url, search_query):
                 except Exception as e:
                     print(f"Error al hacer clic en la publicación: {e}")
         
-        reacctionPublic = soup.find_all('span', {'x193iq5w xeuugli x1fj9vlw x13faqbe x1vvkbs xt0psk2 x1i0vuye xvs91rp x1s688f x5n08af x10wh9bi x1wdrske x8viiok x18hxmgj'})
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'span.html-span.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1hl2dhg.x16tdsg8.x1vvkbs'))
+        )
 
+        # Obtener todos los divs con la clase '_a9zs' (comentarios)
+        reacctionPublic = driver.find_elements(By.CSS_SELECTOR, 'span.html-span.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1hl2dhg.x16tdsg8.x1vvkbs')
+
+        # Obtener el primer elemento de la lista
+        first_reaction = reacctionPublic[0]  # O verifica que la lista no esté vacía primero
+
+        # Obtener el texto de ese primer elemento
+        first_reaction_text = first_reaction.text.strip()
+        print(first_reaction_text)
 
         output_file = "Publicaciones.csv"
         
@@ -184,7 +195,7 @@ def scrape_prices_safari(url, search_query):
                 # Escribir los datos obtenidos
                 writer.writerow([
                     description_comment,
-                    reacctionPublic,
+                    first_reaction_text,
                     cleaned_comments,
                 ])
                 print(f"Datos guardados en {output_file}")
